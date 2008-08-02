@@ -17,7 +17,7 @@ indexes:
   - name: published
     direction: desc
 
-# Used 36 times in query history.
+# Used 106 times in query history.
 - kind: Article
   properties:
   - name: article_type
@@ -31,13 +31,13 @@ indexes:
   - name: published
     direction: desc
 
-# Unused in query history -- copied from input.
+# Used 3 times in query history.
 - kind: Article
   properties:
   - name: published
     direction: desc
 
-# Used once in query history.
+# Unused in query history -- copied from input.
 - kind: Article
   properties:
   - name: tags

@@ -5,7 +5,7 @@
         <title> {{ title }}</title>
         <meta name="generator" content="Bloogle {{ bloogle_version }}" />
         <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
-        <link rel="alternate" type="application/rss+xml" title="{{ blog.title }} RSS Feed" 
+        <link rel="alternate" type="application/rss+xml" title="{{ blog.title }} RSS Feed"
               href="{{ blog.root_url }}{{ blog.master_atom_url }}" />
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css">
         {% if user_is_admin %}
@@ -18,15 +18,9 @@
         <div id="wrapper">
             <a name="top"></a>
             <div id="masthead" class="fix">
-                <h1><a href="/">{{ blog.title }}</a></h1>
-                <div id="authorBlurb">
-                    <img src="/static/images/avatar.png" alt="Avatar" />
-                    <p id="authorIntro">
-                        {{ blog.description }}
-                    </p>
-                </div>
+                <h1 class="sans"><a href="/">{{ blog.title }}</a> <em>{{ blog.description }}</em></h1>
             </div>
-            <ul class="nav fix">
+            <ul class="nav fix" id="navtop">
                 <li>
                     <a href="/" title="Return to the the frontpage">Home
                         <br/>
@@ -54,10 +48,17 @@
                     </a>
                 </li>
                 <li class="skip">
-                    <a href="#main" title="Skip to content">Main
+                {% if user %}
+                    <a href="{{ logout_url }}" title="Logout">Logout
                         <br/>
-                        <span>Skip to content</span>
+                        <span>goodbye</span>
                     </a>
+                {% else %}
+                    <a href="{{ login_url }}" title="Login">Login
+                        <br/>
+                        <span>Google id</span>
+                    </a>
+                {% endif %}
                 </li>
             </ul>
             <div id="archives" class="fix" style="display: none;">
@@ -80,151 +81,44 @@
                 {% if not articles %}
                     {% include '../_shared/bloog_intro.html' %}
                 {% endif %}
-                    <div id="more_reading">
-                        <p>Stay tuned...</p>
-                    </div>
                 </div>
                 {% endblock %}
 
                 <!-- Second column: Show search, selected internal links, etc. -->
                 {% block second_column %}
+                {% if user_is_admin %}
                 <div id="midCol">
-                    {% block search %}
-                    <div id="searchWrap">
-                        <div id="searchcontrol"></div>
-                        <!--<input id="searchsubmit" type="image" src="/static/images/btn_search.gif" alt="Search" />-->
-                    </div>
-                    {% endblock %}
-
-                    {% block tags %}
+                    <!-- Administrative Console -->
                     <div class="middle_links">
-                        <h3>Categories</h3>
-                        <p class="tags">
-                            {% for tag in tags %}
-                            <a href="/tag/{{ tag|urlencode }}">{{ tag }}</a>
-                            {% endfor %}
-                        </p>
-                    </div>
-                    {% endblock %}
-
-                    {% block extra_panel %}
-                    {% endblock %}
-
-                    {% if user_is_admin %}
-                        <!-- Administrative Console -->
-                        <div class="middle_links">
-                            <h3>Administrative Panel</h3>
-                            <ul>
-                                <li><a id="newblog" href="#">New Blog Entry</a></li>
-                                <li><a id="newarticle" href="#">New Article</a>
-                                    - unsyndicated<br />(e.g., about page)</li>
-                                <li><a href="/admin/cache_stats">Memcached Stats</a></li>
-                                <li><a href="/admin/timings">Timing Stats</a></li>
-                            </ul>
-                        </div>
-                    {% endif %}
-
-                    {% block featuredPages1 %}
-                    <div class="middle_links">
-                        <h3>{{ featuredMyPages.title }}</h3>
-                        <p>
-                            {{ featuredMyPages.description }}
-                        </p>
+                        <h3>Administrative Panel</h3>
                         <ul>
-                            {% for entry in featuredMyPages.entries %}
-                            <li>
-                                <a href="{{ entry.url }}">{{ entry.title }}</a>
-                                - {{ entry.description }}
-                            </li>
-                            {% endfor %}
+                            <li><a id="newblog" href="#">New Blog Entry</a></li>
+                            <li><a id="newarticle" href="#">New Article</a>
+                                - unsyndicated<br />(e.g., about page)</li>
+                            <li><a href="/admin/cache_stats">Memcached Stats</a></li>
+                            <li><a href="/admin/timings">Timing Stats</a></li>
                         </ul>
                     </div>
-                    {% endblock %}
-
-                    {% block featuredPages2 %}
-                    <div class="middle_links">
-                        <h3>{{ featuredOthersPages.title }}</h3>
-                        <p>
-                            {{ featuredOthersPages.description }}
-                        </p>
-                        <ul>
-                            {% for entry in featuredOthersPages.entries %}
-                            <li>
-                                <a href="{{ entry.url }}">{{ entry.title }}</a>
-                                - {{ entry.description }}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endblock %}
-
-                    {% block subscribe %}
-                    <div class="middle_links">
-                        <h3>Subscribe</h3>
-                        <p>
-                            Stay updated on my meandering thoughts &amp; activities via Atom syndication.
-                        </p>
-                        <ul>
-                            <li>
-                                <a href="{{ blog.master_atom_url }}" title="Full content Atom feed">Atom feed</a>
-                                - Full content
-                            </li>
-                        </ul>
-                    </div>
-                    {% endblock %}
                 </div>
+                {% endif %}
                 {% endblock %}
 
-                <!-- Third column: Show selected external links, ads, etc. -->
-                {% block third_column %}
-                <div id="tertCol">
-                    <div id="elseWhere">
-                        <ul id="imgLinks">
-                            <li>
-                                <a href="http://web.meetup.com/116/?track=i3/mu_kxqazfu2yy">
-                                    <img class="anyheight" src="/static/images/meetup-bw.png" 
-                                         alt="Silicon Valley Google AppEngine Developers Meetup" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://5thirtyone.com/grid-focus" title="Download Grid Focus by: Derek Punsalan">
-                                    <img src="/static/images/guide/grid_focus_531.gif" alt="Grid Focus - 531" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://is.derekpunsalan.com/" title="Visit Derek Punsalan...is">
-                                    <img src="/static/images/guide/is.gif" alt="Derek Punsalan...is" />
-                                </a>
-                            </li>
-                        </ul>
-                    </div><!-- close #imgLinks -->
-                </div><!-- close #tertCol -->
-                {% endblock %}
             </div>
 
             <div id="footer">
-                <ul class="nav fix">
+                <ul class="nav fix" id="navbottom">
                     <li>
                         <a href="/" title="Return to the the frontpage">Home
                             <br/>
                             <span>Frontpage</span>
                         </a>
                     </li>
-                    {% if user %}
                     <li>
-                        <a href="{{ logout_url }}" title="Logout">Logout
+                        <a id="archiveLink" href="#" title="View the archives">Archives
                             <br/>
-                            <span>goodbye</span>
+                            <span>Browse freely</span>
                         </a>
                     </li>
-                    {% else %}
-                    <li>
-                        <a href="{{ login_url }}" title="Login">Login
-                            <br/>
-                            <span>Google id</span>
-                        </a>
-                    </li>
-                    {% endif %}
                     {% for link in navlinks %}
                     <li>
                         <a href="{{ link.url }}" title="{{ link.description }}">{{ link.title }}
@@ -239,21 +133,27 @@
                             <span>Syndication</span>
                         </a>
                     </li>
-                    <li class="top">
-                        <a href="#top" title="Return to the top">Top
+                    <li class="skip">
+                    {% if user %}
+                        <a href="{{ logout_url }}" title="Logout">Logout
                             <br/>
-                            <span>Return to top</span>
+                            <span>goodbye</span>
                         </a>
+                    {% else %}
+                        <a href="{{ login_url }}" title="Login">Login
+                            <br/>
+                            <span>Google id</span>
+                        </a>
+                    {% endif %}
                     </li>
                 </ul>
                 <div id="attribution">
                     <div id="downloadlinks">
-                        <p>Bloog for <a href="http://code.google.com/appengine/">Google App Engine</a> is available at
+                        <p>Powered by Bloog for <a href="http://code.google.com/appengine/">Google App Engine</a>, courtesy of <a href="http://blog.billkatz.com">Bill Katz</a>. Available at
                             <a href="http://github.com/DocSavage/bloog">GitHub</a> under an MIT license.</p>
-                        <p>This template is an adapted version of 
+                        <p>This template is an adapted version of
                             <a href="http://5thirtyone.com/grid-focus" title="Grid Focus by: Derek Punsalan">Grid Focus</a>
                             for <a href="http://www.djangoproject.com/documentation/templates/">Django templates</a>.</p>
-                        <p>Cache debugging: Page was rendered {% now "M j, H:i:s" %}.
                         {% if user %}
                           ({{ user.nickname }})
                         {% endif %}
@@ -271,7 +171,7 @@
         {% include "../_shared/post_dialogs.html" %}
         {% endif %}
 
-        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
+        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
         <script type="text/javascript">
             function toggleDiv(e) {
                 var archives = document.getElementById("archives");
@@ -289,12 +189,12 @@
 
         {% if user_is_admin %}
         <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/animation/animation-min.js"></script>
-        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/connection/connection-min.js"></script> 
-        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"></script> 
-        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/menu/menu-min.js"></script> 
+        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/connection/connection-min.js"></script>
+        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"></script>
+        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/menu/menu-min.js"></script>
         <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js"></script>
         <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js"></script>
-        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/button/button-min.js"></script> 
+        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/button/button-min.js"></script>
         <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/editor/editor-beta-min.js"></script>
         <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/selector/selector-beta-min.js"></script>
         <script type="text/javascript" src="/static/js/ojay/js-class.js"></script>
