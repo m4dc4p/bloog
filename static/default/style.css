@@ -1,4 +1,4 @@
-/*  
+/*
 Theme Name: Grid Focus Public
 Theme URI: http://5thirtyone.com/
 Description: Grid aligned left
@@ -6,8 +6,8 @@ Version: 1.0
 Author: Derek Punsalan
 Author URI: http://is.derekpunsalan.com/
 
-Notes: Inspired and created for minimalist, content focused blogs 
-or websites. Customize, edit, poke, prod, and adapt to your own 
+Notes: Inspired and created for minimalist, content focused blogs
+or websites. Customize, edit, poke, prod, and adapt to your own
 style. Please leave credit where credit is due so that others may
 find the source for your site and adapt a suitable version for their
 own website.
@@ -20,16 +20,19 @@ Software available at http://www.github.com/DocSavage/bloogle
 */
 
 *{margin:0;padding:0;}
-html,body{background:#FFF;color:#333;text-align:center;} 
-body{font:12px arial,helvetica,verdana,sans-serif;}
-h1{font-size:22px;}
-h2{font-size:18px;}
-h3{font-size:16px;}
-h4{font-size:14px;}
+body{font:12pt georgia, times new roman,serif;}
+
+html,body{background:#FFF;color:#333;text-align:center;}
+
+h1{font-size:22pt;}
+h2{font-size:18pt;}
+h3{font-size:16pt;}
+h4{font-size:14pt;}
+
 a{color:#333;text-decoration:none;}
 a:hover{color:#666;}
-#wrapper{border-top:3px solid #EEE;margin:20px auto;text-align:left;width:965px;} 
-#wrapper pre, #wrapper p { clear: none; }  
+#wrapper{margin: 5px auto;text-align:left;width:900px;}
+#wrapper pre, #wrapper p { clear: none; }
 th,td{padding:3px 20px 3px 0px;}
 
 .popupDialog div.bd{text-align:center;}
@@ -40,23 +43,26 @@ th,td{padding:3px 20px 3px 0px;}
 .popupDialog form textarea{width: 400px; margin:0px 5px;}
 
 /* masthead / footer - navigation and categories */
-#masthead{padding:5px 0;}
-#masthead h1 a{text-transform:uppercase;width:400px;float:left;margin:12px 0 0 0;}
-#masthead h1 a em{font-style:normal;color:#555;}
+#masthead{padding:0px 0 5px 0;}
+#masthead h1 {width:600px; float:left; margin:2px 0 0 0;}
+#masthead h1 a{text-transform:uppercase;font-family: consolas, courier new; padding-right:5px}
+#masthead h1 em{font-style: italic;color:#555; font-size: 16pt;padding-left:5px}
 #authorBlurb img{float:right;width:42px;height:42px;border:3px solid #EEE;}
-#authorIntro a{font-weight:bold;} 
-#authorIntro{line-height:1.4em;width:400px;float:right;margin:8px 0 0 0;}
+#authorIntro a{font-weight:bold;}
+
+#navtop {border-bottom: 1px solid #000}
+#navbottom {border-top: 1px solid #000}
 ul.nav{list-style:none;background:#EEE;}
 .nav li{border-right:1px solid #DDD;float:left;display:block;width:100px;}
-.nav li a{font-size:11px;outline:none;color:#333;text-decoration:none;display:block;padding:5px 0 12px 5px;width:99px;text-transform:uppercase;}
-.nav li a span{font-size:11px;color:#777;text-transform:lowercase;}
+.nav li a{font-weight: bold; font-size:11pt;outline:none;color:#333;text-decoration:none;display:block;padding:5px 0 12px 5px;width:99px;text-transform:uppercase;}
+.nav li a span{font-weight: normal; font-size:11px;color:#777;text-transform:lowercase;}
 .nav li a:hover{background:#333;color:#eee!important;width:95px;}
 * html .nav li a:hover{background:#333;width:99px;}
 .nav li.skip{border-left:1px solid #DDD;float:right;display:block width:100px;}
 .nav li.skip a{width:100px;}
+.nav li.skip a:hover{background:#333;color:#eee!important;width:95px;}
 li.top{border-left:1px solid #DDD;float:right;display:block width:100px;}
 li.top a{width:100px;}
-.nav li.skip a:hover, li.top a:hover { background: transparent;color: #333 !important;}
 #archives{background:#333;}
 #archives ul{list-style:none;padding:5px 0 3px 0;}
 #archives li{float:left;display:block;width:101px;}
@@ -68,7 +74,7 @@ li.top a{width:100px;}
 #poweredby {float:right;width:120px;height:30px;}
 
 /* main - middle content and columns */
-#mid{}#mainCol{float:left;margin:26px 0 0 0;width:435px;}
+#mid{}#mainCol{float:left;margin:10px 0 0 0;width:100%;}
 #mid{}#twoCol{float:left;margin:26px 0 0 0;width:649px;}
 
 /* style individual sidebars */
@@ -93,7 +99,7 @@ ul#imgLinks{list-style:none;margin:7px 0;}
 #imgLinks li a:hover img{border-color:#DDD;}
 
 /* wordpress entries styling - main content column */
-.postMeta{background:url(images/dot.gif) repeat-x left center;text-transform:uppercase;font-size:11px;text-align:right;margin-bottom:5px;}
+.postMeta{text-transform:uppercase;font-size:11px;text-align:right;margin-bottom:5px;}
 .postMeta span.date{background:#FFF;color:#7F7F7F;padding:0 2px 0 4px;}
 .postMeta span.comments{background:#FFF url(images/chat_grey.gif) no-repeat right center;padding-right:15px;margin-right:2px;}
 .postMeta span.comments a,
@@ -193,6 +199,6 @@ ol.pingslist{margin:1.5em 2em;font-size:12px;}
 .left{float:left;}
 .clear{clear:both;}
 .fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
-.fix{display:inline-block;} 
+.fix{display:inline-block;}
 * html .fix{height:1%;}
 .fix{display:block;}
