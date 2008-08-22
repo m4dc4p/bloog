@@ -17,7 +17,7 @@ indexes:
   - name: published
     direction: desc
 
-# Used 114 times in query history.
+# Used 150 times in query history.
 - kind: Article
   properties:
   - name: article_type
@@ -31,7 +31,7 @@ indexes:
   - name: published
     direction: desc
 
-# Used 5 times in query history.
+# Used 7 times in query history.
 - kind: Article
   properties:
   - name: published
@@ -43,3 +43,9 @@ indexes:
   - name: tags
   - name: published
     direction: desc
+
+# Used 25 times in query history.
+- kind: Comment
+  properties:
+  - name: article
+  - name: thread

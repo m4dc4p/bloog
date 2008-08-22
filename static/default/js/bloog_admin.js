@@ -1,24 +1,24 @@
 /**
  The MIT License
- 
+
  Copyright (c) 2008 William T. Katz
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to 
- deal in the Software without restriction, including without limitation 
- the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- and/or sell copies of the Software, and to permit persons to whom the 
+ of this software and associated documentation files (the "Software"), to
+ deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
  Software is furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  DEALINGS IN THE SOFTWARE.
 **/
 
@@ -59,17 +59,28 @@ YAHOO.bloog.initAdmin = function() {
     }
 
     var handleSubmit = function() {
-        YAHOO.bloog.editor.saveHTML();
-        var html = YAHOO.bloog.editor.get('element').value;
+        var html = "";
+
+        // Get RAW HTML or Rich Text depending on visible tab.
+        switch(YAHOO.bloog.editorTabs.get('activeIndex'))
+        {
+            case 0:
+                YAHOO.bloog.editor.saveHTML();
+                html = YAHOO.bloog.editor.get('element').value;
+                break;
+            case 1:
+                html = YAHOO.util.Dom.get('htmlBody').value;
+        }
+
         var title = YAHOO.util.Dom.get('postTitle').value;
         var tags = YAHOO.util.Dom.get('postTags').value;
         var postData = 'title=' + encodeURIComponent(title) + '&' +
                        'tags=' + encodeURIComponent(tags) + '&' +
                        'body=' + encodeURIComponent(html);
         var cObj = YAHOO.util.Connect.asyncRequest(
-            YAHOO.bloog.http.verb, 
-            YAHOO.bloog.http.action, 
-            { success: YAHOO.bloog.handleSuccess, 
+            YAHOO.bloog.http.verb,
+            YAHOO.bloog.http.action,
+            { success: YAHOO.bloog.handleSuccess,
               failure: YAHOO.bloog.handleFailure },
             postData);
     }
@@ -81,7 +92,7 @@ YAHOO.bloog.initAdmin = function() {
             visible: false,
             modal: true,
             constraintoviewpoint: true,
-            buttons: [ { text: "Submit", handler: handleSubmit, 
+            buttons: [ { text: "Submit", handler: handleSubmit,
                          isDefault:true },
                        { text: "Cancel", handler: YAHOO.bloog.handleCancel } ]
         });
@@ -94,8 +105,18 @@ YAHOO.bloog.initAdmin = function() {
         }
         return true;
     }
-    YAHOO.bloog.postDialog.callback = { success: YAHOO.bloog.handleSuccess, 
+    YAHOO.bloog.postDialog.callback = { success: YAHOO.bloog.handleSuccess,
                                         failure: YAHOO.bloog.handleFailure };
+
+    YAHOO.bloog.editorTabs = new YAHOO.widget.TabView("editorTabs");
+
+    YAHOO.bloog.editorTabs.on('activeTabChange', function(ev) {
+        YAHOO.log('Active tab Change, check to see if we are showing the editor..', 'info', 'example');
+         if (ev.newValue == YAHOO.bloog.editor) {
+            YAHOO.log('Editor showing, calling myEditor.show()..', 'info', 'example');
+            YAHOO.bloog.editor.show();
+         }
+    });
 
     YAHOO.bloog.editor = new YAHOO.widget.Editor(
         'postBody', {
@@ -109,8 +130,8 @@ YAHOO.bloog.initAdmin = function() {
     var handleDelete = function() {
         var cObj = YAHOO.util.Connect.asyncRequest(
             'DELETE',
-            '#', 
-            { success: YAHOO.bloog.handleSuccess, 
+            '#',
+            { success: YAHOO.bloog.handleSuccess,
               failure: YAHOO.bloog.handleFailure }
         );
     }
@@ -123,14 +144,14 @@ YAHOO.bloog.initAdmin = function() {
             visible: false,
             draggable: false,
             buttons: [ { text: "Delete!", handler: handleDelete },
-                       { text: "Cancel", 
+                       { text: "Cancel",
                          handler: function () { this.hide(); },
                          isDefault: true } ]
         })
     YAHOO.bloog.deleteDialog.setHeader("Warning");
     YAHOO.bloog.deleteDialog.setBody("Are you sure you want to delete this post?");
     YAHOO.bloog.deleteDialog.render(document.body);
-    
+
     YAHOO.util.Event.on("newarticle", "click", showRTE);
     YAHOO.util.Event.on("newblog", "click", showRTE);
     YAHOO.util.Event.on("editbtn", "click", showRTE);
