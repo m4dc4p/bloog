@@ -1,6 +1,6 @@
 # If we're debugging, turn the cache off, etc.
 # Set to true if we want to have our webapp print stack traces, etc
-DEBUG = True
+DEBUG = False
 
 # Don't change default_blog or default_page to prevent conflicts when merging #  Bloog source code updates.
 # Do change blog or page dictionaries at the bottom of this config module.
@@ -120,9 +120,10 @@ codeslower_blog = {
     #    db.Query(model.Article).filter('legacy_id =', match_str) }
 }
 
-codeslower_page = {
-    "title": codeslower_blog["title"],
-    "navlinks": [{ "title": "Contact", "description": "Send me a note", "url": "/contact"},],
+codeslower_page = {"title": codeslower_blog["title"],
+    "navlinks": [{ "title": "Contact"
+                  , "description": "Send me a note"
+                  , "url": "mailto:" + codeslower_blog['email'] },],
     # Currently tags are hardwired to prevent datastore access.
     # Might shift to lookup + cache.
     "tags": [],
@@ -132,6 +133,3 @@ codeslower_page = {
 
 blog = codeslower_blog
 page = codeslower_page
-
-# Set to true if we want to have our webapp print stack traces, etc
-DEBUG = True

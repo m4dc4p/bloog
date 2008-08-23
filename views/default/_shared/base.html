@@ -147,17 +147,11 @@
                 </ul>
                 <div id="attribution">
                     <div id="downloadlinks">
-                        <p>Powered by Bloog for <a href="http://code.google.com/appengine/">Google App Engine</a>, courtesy of <a href="http://blog.billkatz.com">Bill Katz</a>. Available at
+                        <p>Powered by Bloog, courtesy of <a href="http://blog.billkatz.com">Bill Katz</a>. Available at
                             <a href="http://github.com/DocSavage/bloog">GitHub</a> under an MIT license.</p>
                         <p>This template is an adapted version of
                             <a href="http://5thirtyone.com/grid-focus" title="Grid Focus by: Derek Punsalan">Grid Focus</a>
                             for <a href="http://www.djangoproject.com/documentation/templates/">Django templates</a>.</p>
-                        {% if user %}
-                          ({{ user.nickname }})
-                        {% endif %}
-                        {% if user_is_admin %}
-                          User is administrator.
-                        {% endif %}
                         </p>
                     </div>
                     <img id="poweredby" src="/static/images/appengine-noborder-120x30.gif" alt="Powered by Google App Engine" />
