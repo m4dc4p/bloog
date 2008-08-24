@@ -1,31 +1,30 @@
 /**
  The MIT License
- 
+
  Copyright (c) 2008 William T. Katz
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to 
- deal in the Software without restriction, including without limitation 
- the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- and/or sell copies of the Software, and to permit persons to whom the 
+ of this software and associated documentation files (the "Software"), to
+ deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
  Software is furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  DEALINGS IN THE SOFTWARE.
 **/
 
 YAHOO.bloog.initComments = function() {
 
     var showRTE = function(e) {
-        YAHOO.bloog.commentEditor.setEditorHTML('<p>Comment goes here</p>');
         YAHOO.bloog.commentDialog.show();
     }
 
@@ -48,8 +47,7 @@ YAHOO.bloog.initComments = function() {
         alert("Sorry, could not save comment!");
     }
     var handleSubmit = function() {
-        YAHOO.bloog.commentEditor.saveHTML();
-        var html = YAHOO.bloog.commentEditor.get('element').value;
+        var html = YAHOO.util.Dom.get('commentBody').value;
         var captcha = YAHOO.util.Dom.get('captcha').value;
         var name = YAHOO.util.Dom.get('commentName').value;
         var email = YAHOO.util.Dom.get('commentEmail').value;
@@ -65,13 +63,13 @@ YAHOO.bloog.initComments = function() {
                        'title=' + encodeURIComponent(title) + '&' +
                        'body=' + encodeURIComponent(html);
         var cObj = YAHOO.util.Connect.asyncRequest(
-            'POST', 
-            YAHOO.bloog.action, 
-            { success: handleSuccess, 
+            'POST',
+            YAHOO.bloog.action,
+            { success: handleSuccess,
               failure: handleFailure },
             postData);
     }
-    
+
     YAHOO.bloog.commentDialog = new YAHOO.widget.Dialog(
         "commentDialog", {
             width: "520px",
@@ -79,7 +77,7 @@ YAHOO.bloog.initComments = function() {
             visible: false,
             modal: true,
             constraintoviewpoint: true,
-            buttons: [ { text: "Submit", handler: handleSubmit, 
+            buttons: [ { text: "Submit", handler: handleSubmit,
                          isDefault:true },
                        { text: "Cancel", handler: YAHOO.bloog.handleCancel } ]
         });
@@ -94,18 +92,9 @@ YAHOO.bloog.initComments = function() {
     var handleDialogSuccess = function() {
         alert("We are having success from commentDialog");
     }
-    YAHOO.bloog.commentDialog.callback = { success: handleDialogSuccess, 
+    YAHOO.bloog.commentDialog.callback = { success: handleDialogSuccess,
                                            failure: YAHOO.bloog.handleFailure };
     YAHOO.bloog.commentDialog.render();
-
-    YAHOO.bloog.commentEditor = new YAHOO.widget.SimpleEditor(
-        'commentBody', {
-            height: '150px',
-            width: '500px',
-            dompath: false,
-            animate: true
-        });
-    YAHOO.bloog.commentEditor.render();
 
     // Use event bubbling so we don't have to attach listeners to each reply
     Ojay('div#comments_wrapper').on('click', Ojay.delegateEvent({

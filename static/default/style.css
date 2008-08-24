@@ -164,6 +164,7 @@ p.nocomments a:hover{color:#FFF;}
 ol.pingslist{margin:1.5em 2em;font-size:12px;}
 .pingslist li{color:#7F7F7F;margin:0 0 7px 0;}
 .pingslist li a{font-weight:bold;background:url(images/dot.gif) repeat-x bottom left;}
+.captcha {font-family: consolas, courier new, sans-serif}
 
 /* Some indentations useful for tree placement of comments */
 #comments_wrapper li.indent1{margin-left: 0em;}

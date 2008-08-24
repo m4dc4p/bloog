@@ -105,6 +105,13 @@ def get_html(body, markup_type):
         return textile.textile(str(body))
     return body
 
+# Processes text as markdown w/ safe mode on and
+# returns it.
+def safe_markdown(body):
+    from external.libs import markdown
+    md = markdown.Markdown(body, safe_mode = 'remove')
+    return md.convert()
+
 def get_captcha(key):
     return ("%X" % hash(str(key) + config.blog['title']))[:6]
 
@@ -159,12 +166,13 @@ def process_article_submission(handler, article_type):
         handler.error(400)
 
 def process_comment_submission(handler, article):
+    logging.info("greetings!")
     property_hash = restful.get_sent_properties(handler.request.get,
         ['name',
          'email',
          'homepage',
          'title',
-         'body',
+         ('body', safe_markdown), # Encode HTML as markdown.
          'key',
          'thread',    # If it's given, use it.  Else generate it.
          'captcha',
@@ -280,11 +288,11 @@ class ArticleHandler(restful.Controller):
                          filter('permalink =', path).get()
         render_article(self, article)
 
-#    @restful.methods_via_query_allowed
-#    @authorized.role("user")
-#    def post(self, path):
-#        article = db.Query(model.Article).filter('permalink =', path).get()
-#        process_comment_submission(self, article)
+    @restful.methods_via_query_allowed
+    @authorized.role("user")
+    def post(self, path):
+        article = db.Query(model.Article).filter('permalink =', path).get()
+        process_comment_submission(self, article)
 
     @authorized.role("admin")
     def put(self, path):
@@ -336,18 +344,18 @@ class BlogEntryHandler(restful.Controller):
 
         render_article(self, article)
 
-    #@restful.methods_via_query_allowed
-    #@authorized.role("user")
-    #def post(self, year, month, perm_stem):
-    #    logging.debug("Adding comment for blog entry %s", self.request.path)
-    #    permalink = year + '/' + month + '/' + perm_stem
-    #    article = db.Query(model.Article). \
-    #                 filter('permalink =', permalink).get()
-    #    if article:
-    #        process_comment_submission(self, article)
-    #    else:
-    #        logging.debug("No article attached to submitted comment")
-    #        self.error(400)
+    @restful.methods_via_query_allowed
+    @authorized.role("user")
+    def post(self, year, month, perm_stem):
+        logging.debug("Adding comment for blog entry %s", self.request.path)
+        permalink = year + '/' + month + '/' + perm_stem
+        article = db.Query(model.Article). \
+                     filter('permalink =', permalink).get()
+        if article:
+            process_comment_submission(self, article)
+        else:
+            logging.debug("No article attached to submitted comment")
+            self.error(400)
 
     @authorized.role("admin")
     def put(self, year, month, perm_stem):
