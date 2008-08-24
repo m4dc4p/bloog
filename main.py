@@ -21,20 +21,24 @@
 # DEALINGS IN THE SOFTWARE.
 
 
-"""A simple blog for Google App Engine"""
-
 __author__ = 'William T. Katz'
-
-import wsgiref.handlers
 
 from google.appengine.ext import webapp
 
-import blog
-import contact
-import cache_stats
 import logging
+import os
+import sys
+import wsgiref.handlers
+
+from handlers.bloog import blog, contact, cache_stats, timings
 import config
-import timings
+
+# Force sys.path to have our own directory first, so we can import from it.
+sys.path.insert(0, config.APP_ROOT_DIR)
+
+# Log a message each time this module get loaded.
+logging.info('Loading %s, app version = %s',
+             __name__, os.getenv('CURRENT_VERSION_ID'))
 
 ROUTES = [
     ('/*$', blog.RootHandler),
@@ -48,12 +52,12 @@ ROUTES = [
     ('/search', blog.SearchHandler),
     ('/contact/*$', contact.ContactHandler),
     ('/tag/(.*)', blog.TagHandler),
-    (config.blog['master_atom_url'] + '/*$', blog.AtomHandler),
+    (config.BLOG['master_atom_url'] + '/*$', blog.AtomHandler),
+    ('/articles', blog.ArticlesHandler),
     ('/(.*)', blog.ArticleHandler)]
 
 def main():
     path = timings.start_run()
-    logging.debug("Received request with path %s", path)
     application = webapp.WSGIApplication(ROUTES, debug=True)
     wsgiref.handlers.CGIHandler().run(application)
     timings.stop_run(path)

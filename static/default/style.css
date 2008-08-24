@@ -84,7 +84,7 @@ li.top a{width:100px;}
 #searchWrap,
 .middle_links{margin-bottom:20px;}
 #searchWrap input{vertical-align:middle;}
-#searchWrap #s{font-size:1.1em;border:1px solid #BBB;padding:1px 2px;margin-right:3px;width:220px;}
+#searchWrap #s{font-size:1.1em;border:1px solid #BBB;padding:1px 2px;width:220px;}
 .middle_links h3{margin-bottom:7px;}
 #midCol ul{list-style:none;margin:8px 0 4px;}
 .middle_links ul li{background:url(images/li.gif) no-repeat 0 3px;color:#7F7F7F;line-height:1.2em;border-top:1px solid #BBB;padding:4px 0 4px 16px;}
@@ -97,6 +97,7 @@ ul#imgLinks{list-style:none;margin:7px 0;}
 #imgLinks li a img{border:3px solid #EEE;width:208px;color:#333;font-weight:bold;}
 #imgLinks li a img.anyheight{border:none;width:214px;color:#333;font-weight:bold;}
 #imgLinks li a:hover img{border-color:#DDD;}
+#amazon{margin:0 0 0 30px;}
 
 /* wordpress entries styling - main content column */
 .postMeta{text-transform:uppercase;font-size:11px;text-align:right;margin-bottom:5px;}
@@ -142,6 +143,7 @@ h3#respond{color:#555;margin-bottom:7px;}
 #commentslist li a{font-size:10px;background:url(images/dot.gif) repeat-x bottom left;text-transform:none;}
 #commentslist li.alt{background:#FFF;}
 #commentslist li:hover{border-color:#888;}
+#commentslist .comment_text li{list-style:normal;background:#FFF;border:none;margin:0 0 0 14px;padding:0;}
 #commentslist .comment_text{margin:0 7px;line-height:1.4em;overflow:hidden;}
 .comment_text p,
 .comment_text ul,

@@ -1,13 +1,20 @@
+import os
+import logging
+
+APP_ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
+
 # If we're debugging, turn the cache off, etc.
 # Set to true if we want to have our webapp print stack traces, etc
-DEBUG = False
+DEBUG = os.environ['SERVER_SOFTWARE'].startswith('Dev')
+logging.info("Starting application in DEBUG mode: %s", DEBUG)
 
 # Don't change default_blog or default_page to prevent conflicts when merging #  Bloog source code updates.
 # Do change blog or page dictionaries at the bottom of this config module.
 
-default_blog = {
+BLOG = {
+    "bloog_version": "0.8",
     "html_type": "text/html",
-    "charset": "iso-8859-1",
+    "charset": "utf-8",
     "title": "Bloog",
     "author": "Bill Katz",
     # This must be the email address of a registered administrator for the
@@ -16,6 +23,9 @@ default_blog = {
     "description": "A RESTful Blog/Homepage for Google AppEngine.",
     "root_url": "http://bloog.billkatz.com",
     "master_atom_url": "/feeds/atom.xml",
+    # By default, visitors can comment on article for this many days.
+    # This can be overridden by setting article.allow_comments
+    "days_can_comment": 60,
     # You can override this default for each page through a handler's call to
     #  view.ViewPage(cache_time=...)
     "cache_time": 0 if DEBUG else 3600,
@@ -33,26 +43,19 @@ default_blog = {
     #"legacy_blog_software": "Drupal"
 }
 
-default_page = {
-    "title": default_blog["title"],
+PAGE = {
+    "title": BLOG["title"],
+    "articles_per_page": 5,
     "navlinks": [
-        { "title": "Link", "description": "Short description", "url": "#"},
-        { "title": "Link", "description": "Short description", "url": "#"},
+        { "title": "Articles", "description": "Bits of Info",
+          "url": "/articles"},
         { "title": "Contact", "description": "Send me a note",
           "url": "/contact"},
-    ],
-    # Currently tags are hardwired to prevent datastore access.
-    # Might shift to lookup + cache.
-    "tags": [
-        'AppEngine', 'Bloog', 'Google', 'GData API', 'Another Unused Tag'
     ],
     "featuredMyPages": {
         "title": "Bloog Development",
         "description": "Get involved",
         "entries": [
-            { "title": "Announcement",
-              "url": "http://billkatz-test.appspot.com",
-              "description": "Author's Bloog" },
             { "title": "Source Code",
               "url": "http://github.com/DocSavage/bloog",
               "description": "GitHub repository" },
@@ -62,10 +65,12 @@ default_page = {
             { "title": "Group",
               "url": "http://groups.google.com/group/bloog/topics",
               "description": "Developer discussion" },
+            { "title": "Author's Bloog",
+              "url": "http://www.billkatz.com",
+              "description": "What's brewing" },
             { "title": "Architecture Diagram",
               "url": "/static/images/architecture2.png",
-              "description":
-                "How Bloog interacts with clients through REST HTTP" }
+              "description": "RESTful Bloog" }
         ]
     },
     "featuredOthersPages": {

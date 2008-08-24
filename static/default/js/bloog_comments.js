@@ -96,6 +96,41 @@ YAHOO.bloog.initComments = function() {
                                            failure: YAHOO.bloog.handleFailure };
     YAHOO.bloog.commentDialog.render();
 
+    YAHOO.bloog.commentEditor = new YAHOO.widget.SimpleEditor(
+        'commentBody', {
+            height: '150px',
+            width: '500px',
+            dompath: false,
+            animate: true,
+            toolbar: {
+                titlebar: '',
+                buttons: [
+                    { group: 'fontstyle', label: 'Font Style',
+                        buttons: [
+                            { type: 'push', label: 'Bold', value: 'bold' },
+                            { type: 'push', label: 'Italic', value: 'italic' },
+                            { type: 'push', label: 'Underline', value: 'underline' }
+                        ]
+                    },
+                    { type: 'separator' },
+                    { group: 'indentlist', label: 'Lists',
+                        buttons: [
+                            { type: 'push', label: 'Create an Unordered List', value: 'insertunorderedlist' },
+                            { type: 'push', label: 'Create an Ordered List', value: 'insertorderedlist' }
+                        ]
+                    },
+                    { type: 'separator' },
+                    { group: 'insertitem', label: 'Insert Item',
+                        buttons: [
+                            { type: 'push', label: 'HTML Link CTRL + SHIFT + L', value: 'createlink' },
+                            { type: 'push', label: 'Insert Image', value: 'insertimage', disabled: true }
+                        ]
+                    }
+                ]
+            }
+        });
+    YAHOO.bloog.commentEditor.render();
+
     // Use event bubbling so we don't have to attach listeners to each reply
     Ojay('div#comments_wrapper').on('click', Ojay.delegateEvent({
         'a.replybtn': function(link, e) {
