@@ -29,8 +29,9 @@ h2{font-size:18pt;}
 h3{font-size:16pt;}
 h4{font-size:14pt;}
 
-a{color:#333;text-decoration:none;}
+a{color:#333;text-decoration:underline;}
 a:hover{color:#666;}
+a.title{color:#333;text-decoration:none;}
 #wrapper{margin: 5px auto;text-align:left;width:900px;}
 #wrapper pre, #wrapper p { clear: none; }
 th,td{padding:3px 20px 3px 0px;}

@@ -14,7 +14,7 @@
 {% endif %}
 {% if article %}
     <div id="article" class="post">
-        <h2><a id="blogtitle" href="/{{ article.permalink }}" title="{{ article.title }}">{{ article.title }}</a></h2>
+        <h2><a id="blogtitle" href="/{{ article.permalink }}" title="{{ article.title }}" class="title">{{ article.title }}</a></h2>
         <div class="postMeta">
             {% if user_is_admin %}
             <span class="articlebtn"><a id="editbtn" href="#">Edit</a></span>
@@ -53,8 +53,12 @@
         {% if allow_comments %}
         <a class="replybtn" href="#">Add a comment...</a>
         {% else %}
-            {% if article.num_comments %}
-            <p>Comments are closed</p>
+            {% if user %}
+                {% if article.num_comments %}
+                <p>Comments are closed</p>
+                {% endif %}
+            {% else %}
+            <p>Please <a href="{{ login_url }}">login</a> to comment.
             {% endif %}
         {% endif %}
         {% if allow_comments or article.num_comments %}

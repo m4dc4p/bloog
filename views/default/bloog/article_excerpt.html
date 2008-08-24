@@ -5,7 +5,7 @@
         {% endif %}
         <span class="date">{{ article.published.date }}</span>
     </div>
-    <h2><a href="/{{ article.permalink }}" title="{{ article.title }}">{{ article.title }}</a></h2>
+    <h2><a href="/{{ article.permalink }}" title="{{ article.title }}" class="title">{{ article.title }}</a></h2>
     <div class="entry">
         <p>{{ article.html|truncatewords_html:68 }}</p>
     </div>

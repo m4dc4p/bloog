@@ -284,7 +284,7 @@ def process_comment_submission(handler, article):
 
     # Render just this comment and send it to client
     response = template.render(
-        "views/%s/blog/comment.html" % config.blog['theme'],
+        "views/%s/bloog/blog/comment.html" % config.blog['theme'],
         { 'comment': comment },
         debug=config.DEBUG)
     handler.response.out.write(response)
@@ -312,6 +312,9 @@ def render_article(handler, article):
             if allow_comments is None:
                 age = (datetime.datetime.now() - article.published).days
                 allow_comments = (age <= config.BLOG['days_can_comment'])
+            # Only allow registered users to post.
+            if users.get_current_user() is None:
+                allow_comments = None
             page = view.ViewPage()
             page.render(handler, { "two_columns": two_columns,
                                    "allow_comments": allow_comments,
@@ -343,7 +346,7 @@ class RootHandler(restful.Controller):
         page = view.ViewPage()
         page.render_query(
             self, 'articles',
-            db.Query(model.Article). \
+            db.Query(models.blog.Article). \
                filter('article_type =', 'blog entry').order('-published'))
 
     @authorized.role("admin")
@@ -448,7 +451,7 @@ class BlogEntryHandler(restful.Controller):
         logging.debug("BlogEntryHandler#get for year %s, "
                       "month %s, and perm_link %s",
                       year, month, perm_stem)
-        article = db.Query(model.Article). \
+        article = db.Query(models.blog.Article). \
                      filter('permalink =',
                             year + '/' + month + '/' + perm_stem).get()
         render_article(self, article)
@@ -492,7 +495,7 @@ class TagHandler(restful.Controller):
         page = view.ViewPage()
         page.render_query(
             self, 'articles',
-            db.Query(model.Article).filter('tags =', tag).order('-published'),
+            db.Query(models.blog.Article).filter('tags =', tag).order('-published'),
             {'tag': tag})
 
 class SearchHandler(restful.Controller):
@@ -503,7 +506,7 @@ class SearchHandler(restful.Controller):
         page.render_query(
             self, 'articles',
             # model.Article.all().search(search_term).order('-published'),
-            db.Query(model.Article). \
+            db.Query(models.blog.Article). \
                filter('tags =', search_term).order('-published'),
             {'search_term': search_term})
 
@@ -515,7 +518,7 @@ class YearHandler(restful.Controller):
         page = view.ViewPage()
         page.render_query(
             self, 'articles',
-            db.Query(model.Article).order('-published'). \
+            db.Query(models.blog.Article).order('-published'). \
                filter('published >=', start_date). \
                filter('published <=', end_date),
             {'title': 'Articles for ' + year, 'year': year})
@@ -530,7 +533,7 @@ class MonthHandler(restful.Controller):
         page = view.ViewPage()
         page.render_query(
             self, 'articles',
-            db.Query(model.Article).order('-published'). \
+            db.Query(models.blog.Article).order('-published'). \
                filter('published >=', start_date). \
                filter('published <=', end_date),
             {'title': 'Articles for ' + month + '/' + year,

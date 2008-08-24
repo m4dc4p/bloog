@@ -11,7 +11,8 @@ logging.info("Starting application in DEBUG mode: %s", DEBUG)
 # Don't change default_blog or default_page to prevent conflicts when merging #  Bloog source code updates.
 # Do change blog or page dictionaries at the bottom of this config module.
 
-BLOG = {
+
+default_blog = {
     "bloog_version": "0.8",
     "html_type": "text/html",
     "charset": "utf-8",
@@ -43,8 +44,8 @@ BLOG = {
     #"legacy_blog_software": "Drupal"
 }
 
-PAGE = {
-    "title": BLOG["title"],
+default_page = {
+    "title": default_blog["title"],
     "articles_per_page": 5,
     "navlinks": [
         { "title": "Articles", "description": "Bits of Info",
@@ -98,6 +99,7 @@ PAGE = {
 # The view will preferentially use 'blog' and 'page' dictionaries.
 
 codeslower_blog = {
+    "bloog_version": "0.8",
     "html_type": "text/html",
     "charset": "iso-8859-1",
     "title": "codeslower.com",
@@ -105,24 +107,13 @@ codeslower_blog = {
     # This must be the email address of a registered administrator for the
     # application due to mail api restrictions.
     "email": "jgbailey+blog@codeslower.com",
-    "description": "Savor Your Code",
+    "description": "Savor Your Code.",
     "root_url": "http://blog.codeslower.com",
     "master_atom_url": "/feeds/atom.xml",
-    # You can override this default for each page through a handler's call to
-    #  view.ViewPage(cache_time=...)
+    "days_can_comment": 60,
     "cache_time": 0 if DEBUG else 3600,
-    # Use the default YUI-based theme.
-    # If another string is used besides 'default', calls to static files and
-    #  use of template files in /views will go to directory by that name.
-    "theme": "default"
-
-    # We allow a mapping from some old url pattern to the current query
-    #  using a regex's matched string.  (See PageHandler in blog.py)
-    # The example below is for Drupal and should be uncommented if you
-    #  are converting from Drupal
-    # "legacy_id_mapping": { 'regex': 'node/(\d+)',
-    #                        'query': lambda match_str:
-    #    db.Query(model.Article).filter('legacy_id =', match_str) }
+    "theme": "default",
+    "legacy_blog_software": None
 }
 
 codeslower_page = {"title": codeslower_blog["title"],
@@ -131,10 +122,11 @@ codeslower_page = {"title": codeslower_blog["title"],
                   , "url": "mailto:" + codeslower_blog['email'] },],
     # Currently tags are hardwired to prevent datastore access.
     # Might shift to lookup + cache.
+    "articles_per_page": 5,
     "tags": [],
     "featuredMyPages": {    },
     "featuredOthersPages": {    },
 }
 
-blog = codeslower_blog
-page = codeslower_page
+BLOG = codeslower_blog
+PAGE = codeslower_page
