@@ -16,59 +16,8 @@
         <div id="wrapper">
             <a name="top"></a>
             <div id="masthead" class="fix">
-                <h1 class="sans"><a href="/">{{ blog.title }}</a> <em>{{ blog.description }}</em></h1>
+                <h1 class="sans"><a href="/" class="title">{{ blog.title }}</a> <em>{{ blog.description }}</em></h1>
             </div>
-            <ul class="nav fix" id="navtop">
-                <li>
-                    <a href="/" title="Return to the the frontpage">Home
-                        <br/>
-                        <span>Frontpage</span>
-                    </a>
-                </li>
-                <li>
-                    <a id="archiveLink" href="#" title="View the archives">Archives
-                        <br/>
-                        <span>Browse freely</span>
-                    </a>
-                </li>
-                {% for link in navlinks %}
-                <li>
-                    <a href="{{ link.url }}" title="{{ link.description }}">{{ link.title }}
-                        <br/>
-                        <span>{{ link.description }}</span>
-                    </a>
-                </li>
-                {% endfor %}
-                <li>
-                    <a href="{{ blog.master_atom_url }}" title="Subscribe to the main Atom feed">Atom
-                        <br/>
-                        <span>Syndication</span>
-                    </a>
-                </li>
-                <li class="skip">
-                {% if user %}
-                    <a href="{{ logout_url }}" title="Logout">Logout
-                        <br/>
-                        <span>goodbye</span>
-                    </a>
-                {% else %}
-                    <a href="{{ login_url }}" title="Login">Login
-                        <br/>
-                        <span>Google id</span>
-                    </a>
-                {% endif %}
-                </li>
-            </ul>
-            <div id="archives" class="fix" style="display: none;">
-                <ul class="fix">
-                    <li><a href="/2008">2008</a></li>
-                    <li><a href="/2007">2007</a></li>
-                    <li><a href="/2006">2006</a></li>
-                    <li><a href="/2005">2005</a></li>
-                    <li><a href="/2004">2004</a></li>
-                </ul>
-            </div>
-
             <div id="mid" class="fix">
                 <!-- First column: Main content -->
                 {% block first_column %}
@@ -169,48 +118,15 @@
                 </div>
                 {% endif %}
                 {% endblock %}
-
-                <!-- Third column: Show selected external links, ads, etc. -->
-                {% block third_column %}
-                <div id="tertCol">
-                    <div id="elseWhere">
-                        <ul id="imgLinks">
-                            <li>
-                                <a href="http://web.meetup.com/116/?track=i3/mu_kxqazfu2yy">
-                                    <img class="anyheight" src="/static/images/meetup-bw.png"
-                                         alt="Silicon Valley Google AppEngine Developers Meetup" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://5thirtyone.com/grid-focus" title="Download Grid Focus by: Derek Punsalan">
-                                    <img src="/static/default/images/guide/grid_focus_531.gif" alt="Grid Focus - 531" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://is.derekpunsalan.com/" title="Visit Derek Punsalan...is">
-                                    <img src="/static/default/images/guide/is.gif" alt="Derek Punsalan...is" />
-                                </a>
-                            </li>
-                        </ul>
-                    </div><!-- close #imgLinks -->
-                    <div id="amazon">
-                        <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" id="Player_3a384201-5621-4eaf-8d86-29cbdd776d06"  WIDTH="160px" HEIGHT="600px">
-                            <PARAM NAME="movie" VALUE="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fbilkat-20%2F8010%2F3a384201-5621-4eaf-8d86-29cbdd776d06&Operation=GetDisplayTemplate">
-                            <PARAM NAME="quality" VALUE="high">
-                            <PARAM NAME="bgcolor" VALUE="#FFFFFF">
-                            <PARAM NAME="allowscriptaccess" VALUE="always">
-                            <embed src="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fbilkat-20%2F8010%2F3a384201-5621-4eaf-8d86-29cbdd776d06&Operation=GetDisplayTemplate" id="Player_3a384201-5621-4eaf-8d86-29cbdd776d06" quality="high" bgcolor="#ffffff" name="Player_3a384201-5621-4eaf-8d86-29cbdd776d06" allowscriptaccess="always"  type="application/x-shockwave-flash" align="middle" height="600px" width="160px">
-                            </embed>
-                        </OBJECT>
-                        <NOSCRIPT>
-                            <A HREF="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fbilkat-20%2F8010%2F3a384201-5621-4eaf-8d86-29cbdd776d06&Operation=NoScript">Amazon.com Widgets</A>
-                        </NOSCRIPT>
-                    </div>
-                </div><!-- close #tertCol -->
-                {% endblock %}
             </div>
 
             <div id="footer">
+                <div id="archives" class="fix" style="display: none;">
+                    <a name="archives" />
+                    <ul class="fix">
+                        <li><a href="/2008">2008</a></li>
+                    </ul>
+                </div>
                 <ul class="nav fix" id="navbottom">
                     <li>
                         <a href="/" title="Return to the the frontpage">Home
@@ -219,7 +135,7 @@
                         </a>
                     </li>
                     <li>
-                        <a id="archiveLink" href="#" title="View the archives">Archives
+                        <a id="archiveLink" href="#archives" title="View the archives">Archives
                             <br/>
                             <span>Browse freely</span>
                         </a>
@@ -254,12 +170,8 @@
                 </ul>
                 <div id="attribution">
                     <div id="downloadlinks">
-                        <p>Powered by Bloog, courtesy of <a href="http://blog.billkatz.com">Bill Katz</a>. Available at
-                            <a href="http://github.com/DocSavage/bloog">GitHub</a> under an MIT license.</p>
-                        <p>This template is an adapted version of
-                            <a href="http://5thirtyone.com/grid-focus" title="Grid Focus by: Derek Punsalan">Grid Focus</a>
-                            for <a href="http://www.djangoproject.com/documentation/templates/">Django templates</a>.</p>
-                        </p>
+                        <p>Contact the author, Justin Bailey, at <span style="font-family: consolas, courier new; font-size: larger">jgbailey@codeslower.com</span>.</p>
+                        <p>Blog by Bloog, available at <a href="http://github.com/DocSavage/bloog">GitHub</a>.</p>
                     </div>
                     <img id="poweredby" src="/static/images/appengine-noborder-120x30.gif" alt="Powered by Google App Engine" />
                 </div>

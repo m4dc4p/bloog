@@ -7,11 +7,7 @@
 {% endif %}
 
 {% block first_column %}
-{% if two_columns %}
-<div id="twoCol" class="fix"><a name="main"></a>
-{% else %}
 <div id="mainCol" class="fix"><a name="main"></a>
-{% endif %}
 {% if article %}
     <div id="article" class="post">
         <h2><a id="blogtitle" href="/{{ article.permalink }}" title="{{ article.title }}" class="title">{{ article.title }}</a></h2>
@@ -92,7 +88,3 @@ dp.SyntaxHighlighter.HighlightAll('code');
 {% endif %}
 
 {% endblock %}
-{% if two_columns %}
-{% block third_column %}
-{% endblock %}
-{% endif %}
