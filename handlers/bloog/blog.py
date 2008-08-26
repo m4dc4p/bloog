@@ -284,7 +284,7 @@ def process_comment_submission(handler, article):
 
     # Render just this comment and send it to client
     response = template.render(
-        "views/%s/bloog/blog/comment.html" % config.blog['theme'],
+        "views/%s/bloog/blog/comment.html" % config.BLOG['theme'],
         { 'comment': comment },
         debug=config.DEBUG)
     handler.response.out.write(response)
