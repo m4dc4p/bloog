@@ -127,7 +127,7 @@ def get_html(body, markup_type):
 # Processes text as markdown w/ safe mode on and
 # returns it.
 def safe_markdown(body):
-    from external.libs import markdown
+    from utils import markdown
     md = markdown.Markdown(body, safe_mode = 'remove')
     return md.convert()
 
