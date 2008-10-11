@@ -161,7 +161,7 @@ def process_article_edit(handler, permalink):
         params[key] = value[0]
     property_hash = restful.get_sent_properties(params.get,
         ['title',
-         ('body', get_sanitizer_func(handler, trusted_source=True)),
+         ('body', lambda a : a),
          ('format', get_format),
          ('updated', get_datetime),
          ('tags', get_tags),
@@ -190,7 +190,7 @@ def process_article_edit(handler, permalink):
 def process_article_submission(handler, article_type):
     property_hash = restful.get_sent_properties(handler.request.get,
         ['title',
-         ('body', get_sanitizer_func(handler, trusted_source=True)),
+         ('body', lambda a : a),
          'legacy_id',
          ('format', get_format),
          ('published', get_datetime),
