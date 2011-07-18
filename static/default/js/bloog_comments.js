@@ -75,7 +75,6 @@ YAHOO.bloog.initComments = function() {
             width: "520px",
             fixedcenter: true,
             visible: false,
-            modal: true,
             constraintoviewpoint: true,
             buttons: [ { text: "Submit", handler: handleSubmit,
                          isDefault:true },

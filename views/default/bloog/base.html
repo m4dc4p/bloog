@@ -8,12 +8,14 @@
         <link rel="stylesheet" href="/static/code.css" type="text/css" media="screen" />
         <link rel="alternate" type="application/rss+xml" title="{{ blog.title }} RSS Feed"
               href="{{ blog.root_url }}{{ blog.master_atom_url }}" />
-        <!-- Originally http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css -->
-        <link rel="stylesheet" type="text/css" href="/static/skin.css">
-        <!-- Originally http://yui.yahooapis.com/2.5.2/build/container/assets/skins/sam/container.css-->
-        <link rel="stylesheet" type="text/css" href="/static/container.css">
-        {% block head %}
-        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.9.0/build/assets/skins/sam/skin.css" />
+        <!-- Combo-handled YUI CSS files: -->
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.9.0/build/assets/skins/sam/skin.css" />
+        <!-- Combo-handled YUI JS files: -->
+        <!-- Configured using: http://developer.yahoo.com/yui/articles/hosting/?animation&button&connection&container&dom&editor&element&event&selector&tabview&yahoo&MIN -->
+        <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/animation/animation-min.js&2.9.0/build/element/element-min.js&2.9.0/build/connection/connection-min.js&2.9.0/build/container/container-min.js&2.9.0/build/menu/menu-min.js&2.9.0/build/button/button-min.js&2.9.0/build/editor/editor-min.js&2.9.0/build/selector/selector-min.js&2.9.0/build/tabview/tabview-min.js"></script>
+        <script type="text/javascript" src="/static/default/js/ojay/js-class.js"></script>
+        <script type="text/javascript" src="/static/default/js/ojay/core.js"></script>
     </head>
     <body class="yui-skin-sam">
         <div id="wrapper">
@@ -181,7 +183,6 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
         <script type="text/javascript" src="/static/default/js/bloog_base.js"></script>
 
         {% if user_is_admin %}
