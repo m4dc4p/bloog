@@ -116,7 +116,9 @@ ul#imgLinks{list-style:none;margin:7px 0;}
 .post .entry{line-height:1.4em;overflow:hidden;}
 .post .entry p{margin:1em 0;}
 .post .entry a{background:url(images/dot.gif) repeat-x bottom left;font-weight:bold;}
-.entry blockquote,cite,code{margin:0.8em 1.3em; display:block;}
+.entry blockquote,cite{margin:0.8em 1.3em; display:block;}
+.entry pre code {margin:0.8em 1.3em; display:block;}
+
 .entry ul{margin:0 1.3em 0;list-style:square;}
 .entry li a{color:#333;font-weight:bold;background:url(images/dot.gif) repeat-x bottom left;}
 .entry ul li{margin:0 10px 7px 7px;}
