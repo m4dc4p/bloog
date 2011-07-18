@@ -5,11 +5,14 @@
         <title> {{ title }}</title>
         <meta name="generator" content="Bloogle {{ bloogle_version }}" />
         <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/static/code.css" type="text/css" media="screen" />
         <link rel="alternate" type="application/rss+xml" title="{{ blog.title }} RSS Feed"
               href="{{ blog.root_url }}{{ blog.master_atom_url }}" />
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css">
+        <!-- Originally http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css -->
+        <link rel="stylesheet" type="text/css" href="/static/skin.css">
         {% if user_is_admin %}
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/container/assets/skins/sam/container.css">
+        <!-- Originally http://yui.yahooapis.com/2.5.2/build/container/assets/skins/sam/container.css-->
+        <link rel="stylesheet" type="text/css" href="/static/container.css">
         {% endif %}
         {% block head %}
         {% endblock %}
