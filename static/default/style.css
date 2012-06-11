@@ -117,6 +117,7 @@ ul#imgLinks{list-style:none;margin:7px 0;}
 .post .entry p{margin:1em 0;}
 .post .entry a{background:url(images/dot.gif) repeat-x bottom left;font-weight:bold;}
 .entry blockquote,cite{margin:0.8em 1.3em; display:block;}
+.entry code {display: inline;}
 .entry pre code {margin:0.8em 1.3em; display:block;}
 
 .entry ul{margin:0 1.3em 0;list-style:square;}
