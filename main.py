@@ -24,6 +24,8 @@
 __author__ = 'William T. Katz'
 
 from google.appengine.ext import webapp
+from google.appengine.dist import use_library
+use_library('django', '0.96')
 
 import logging
 import os
