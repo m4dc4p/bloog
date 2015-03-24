@@ -1,6 +1,7 @@
-application: codeslower
+application: codeslower2
 version: 2
-runtime: python
+runtime: python27
+threadsafe: false
 api_version: 1
 
 handlers:
